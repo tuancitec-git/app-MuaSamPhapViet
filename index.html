@@ -22,7 +22,7 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased">
 
-    <!-- DATALISTS FOR AUTOCOMPLETE / LISTE DÉROULANTE -->
+    <!-- DATALISTS FOR AUTOCOMPLETE -->
     <datalist id="datalist-webstores"></datalist>
     <datalist id="datalist-emails"></datalist>
     <datalist id="datalist-recipients"></datalist>
@@ -63,7 +63,7 @@
                         <span class="text-[10px] text-slate-400 ml-1">VND</span>
                     </div>
 
-                    <!-- AI Mail/Facture Reader Button (Admin Only) -->
+                    <!-- AI Mail/Facture Reader Button -->
                     <button id="btn-ai-reader-header" onclick="openModal('modal-ai-reader')" 
                             class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-md flex items-center space-x-1.5 transition-all">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -194,15 +194,31 @@
                 </div>
             </div>
 
+            <!-- FILTERS BAR FOR TAB 1 -->
             <div class="bg-white p-3.5 rounded-2xl border border-slate-200 flex flex-wrap gap-2 items-center justify-between text-xs">
                 <div class="flex items-center space-x-2 flex-grow max-w-md">
                     <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
                     <input type="text" id="search-requests" placeholder="Tìm tên sản phẩm cần mua..." oninput="renderRequests()"
                            class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500">
                 </div>
-                <div class="flex items-center space-x-2">
-                    <select id="filter-priority" onchange="renderRequests()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-slate-700">
-                        <option value="ALL">Tất cả mức ưu tiên</option>
+                <div class="flex flex-wrap items-center gap-2">
+                    <!-- FILTER CATEGORY / NƠI MUA -->
+                    <select id="filter-category" onchange="renderRequests()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none focus:ring-1 focus:ring-red-500">
+                        <option value="ALL">📍 Tất cả nơi mua</option>
+                        <option value="Nhà thuốc">💊 Nhà thuốc</option>
+                        <option value="Sephora">💄 Sephora</option>
+                        <option value="Nocibé">🌸 Nocibé</option>
+                        <option value="Marionnaud">✨ Marionnaud</option>
+                        <option value="Web rẻ">🌐 Web rẻ</option>
+                        <option value="Galeries & Printemps">🏛️ Galeries & Printemps</option>
+                        <option value="Outlet">🏷️ Outlet</option>
+                        <option value="Store hãng">🏪 Store hãng</option>
+                        <option value="Siêu thị">🛒 Siêu thị</option>
+                    </select>
+
+                    <!-- FILTER PRIORITY -->
+                    <select id="filter-priority" onchange="renderRequests()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-bold text-slate-700 focus:outline-none focus:ring-1 focus:ring-red-500">
+                        <option value="ALL">🔥 Tất cả mức ưu tiên</option>
                         <option value="Gấp 🔥">Gấp 🔥</option>
                         <option value="Săn Sale 🏷️">Săn Sale 🏷️</option>
                         <option value="Chờ được ⏳">Chờ được ⏳</option>
@@ -218,8 +234,8 @@
                                 <th class="py-3 px-4">Tên Sản Phẩm Cần Mua</th>
                                 <th class="py-3 px-4 text-center">SL Yêu Cầu</th>
                                 <th class="py-3 px-4 text-center">Ưu Tiên</th>
+                                <th class="py-3 px-4 text-center">Nơi Mua / Nhóm Hàng</th>
                                 <th class="py-3 px-4">Ghi Chú</th>
-                                <th class="py-3 px-4 text-center">Trạng Thái</th>
                                 <th class="py-3 px-4 text-right">Thao Tác</th>
                             </tr>
                         </thead>
@@ -450,6 +466,20 @@
                     </div>
                 </div>
                 <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nơi Mua / Nhóm Hàng *</label>
+                    <select id="req-category" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-red-500 font-semibold">
+                        <option value="Sephora">Sephora</option>
+                        <option value="Nhà thuốc">Nhà thuốc</option>
+                        <option value="Nocibé">Nocibé</option>
+                        <option value="Marionnaud">Marionnaud</option>
+                        <option value="Web rẻ">Web rẻ</option>
+                        <option value="Galeries & Printemps">Galeries & Printemps</option>
+                        <option value="Outlet">Outlet</option>
+                        <option value="Store hãng">Store hãng</option>
+                        <option value="Siêu thị">Siêu thị</option>
+                    </select>
+                </div>
+                <div>
                     <label class="block font-bold text-slate-700 mb-1">Ghi Chú Chi Tiết</label>
                     <textarea id="req-note" rows="2" placeholder="Ví dụ: Mua ở Sephora Pháp, canh lúc giảm giá 20%" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-red-500"></textarea>
                 </div>
@@ -487,6 +517,20 @@
                             <option value="Gấp 🔥">Gấp 🔥</option>
                         </select>
                     </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nơi Mua / Nhóm Hàng *</label>
+                    <select id="edit-req-category" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500 font-semibold">
+                        <option value="Sephora">Sephora</option>
+                        <option value="Nhà thuốc">Nhà thuốc</option>
+                        <option value="Nocibé">Nocibé</option>
+                        <option value="Marionnaud">Marionnaud</option>
+                        <option value="Web rẻ">Web rẻ</option>
+                        <option value="Galeries & Printemps">Galeries & Printemps</option>
+                        <option value="Outlet">Outlet</option>
+                        <option value="Store hãng">Store hãng</option>
+                        <option value="Siêu thị">Siêu thị</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Ghi Chú</label>
@@ -756,7 +800,7 @@
         </div>
     </div>
 
-    <!-- MODAL: AI MAIL / FACTURE READER & INTERACTIVE VALIDATION -->
+    <!-- MODAL: AI MAIL / FACTURE READER -->
     <div id="modal-ai-reader" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl overflow-hidden flex flex-col max-h-[92vh]">
             <div class="bg-gradient-to-r from-amber-500 to-orange-600 px-5 py-4 text-white flex justify-between items-center shrink-0">
@@ -931,7 +975,6 @@
         }
 
         async function initFirebase() {
-            // CLÉS FIREBASE AUTOMATIQUEMENT INTÉGRÉES :
             const firebaseConfig = {
                 apiKey: "AIzaSyAdDoPxl_rLoi26bxpi4q2vryCfT4YyhWE",
                 authDomain: "muasamphapviet.firebaseapp.com",
@@ -1211,12 +1254,14 @@
             document.getElementById('badge-orders-count').innerText = (window.appData.orders || []).length;
         }
 
+        // RENDER TAB 1: CẦN MUA (NEWEST FIRST + CATEGORY BADGE)
         window.renderRequests = function() {
             const tbody = document.getElementById('requests-tbody');
             if (!tbody) return;
 
             const searchTerm = (document.getElementById('search-requests')?.value || '').toLowerCase();
             const priorityVal = document.getElementById('filter-priority')?.value || 'ALL';
+            const categoryVal = document.getElementById('filter-category')?.value || 'ALL';
             const isAdmin = window.currentRole === 'ADMIN';
 
             const nameCounts = {};
@@ -1225,14 +1270,23 @@
                 if (norm) nameCounts[norm] = (nameCounts[norm] || 0) + 1;
             });
 
-            const filtered = (window.appData.requests || []).filter(r => {
+            // SORT NEWEST FIRST (Based on createdAt timestamp or ID timestamp)
+            let rawList = [...(window.appData.requests || [])];
+            rawList.sort((a, b) => {
+                const timeA = a.createdAt || parseInt((a.id || '').split('_')[1]) || 0;
+                const timeB = b.createdAt || parseInt((b.id || '').split('_')[1]) || 0;
+                return timeB - timeA;
+            });
+
+            const filtered = rawList.filter(r => {
                 const matchesSearch = (r.name || '').toLowerCase().includes(searchTerm) || (r.note || '').toLowerCase().includes(searchTerm);
                 const matchesPriority = priorityVal === 'ALL' || r.priority === priorityVal;
-                return matchesSearch && matchesPriority;
+                const matchesCategory = categoryVal === 'ALL' || (r.category || 'Sephora') === categoryVal;
+                return matchesSearch && matchesPriority && matchesCategory;
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400 italic">Không tìm thấy sản phẩm cần mua nào.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400 italic">Không tìm thấy sản phẩm cần mua nào phù hợp với bộ lọc.</td></tr>';
                 return;
             }
 
@@ -1245,6 +1299,9 @@
                 const dupBadge = isDuplicate ? `<span class="bg-amber-100 text-amber-800 border border-amber-300 font-bold px-1.5 py-0.5 rounded text-[10px] mr-1.5" title="Sản phẩm này bị lặp trong danh sách"><i class="fa-solid fa-clone mr-1"></i>Trùng</span>` : '';
                 const updatedBadge = req.isQtyUpdated ? `<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-[9px] px-1.5 py-0.5 rounded font-bold ml-1.5"><i class="fa-solid fa-sparkles mr-0.5"></i>Vừa cập nhật SL</span>` : '';
 
+                const catName = req.category || 'Sephora';
+                const catBadge = `<span class="bg-sky-50 text-sky-800 border border-sky-200 px-2.5 py-1 rounded-lg font-bold text-[11px] inline-flex items-center"><i class="fa-solid fa-store mr-1 text-sky-600"></i>${escapeHtml(catName)}</span>`;
+
                 const actions = (isAdmin ? `<button onclick="openConfirmPurchaseModal('${req.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-xs transition-all inline-flex items-center"><i class="fa-solid fa-credit-card mr-1"></i>Xác Nhận Mua 💳</button> ` : '') +
                     `<button onclick="openEditRequestModal('${req.id}')" class="p-1.5 text-slate-500 hover:text-sky-600 hover:bg-sky-50 rounded-lg transition-colors"><i class="fa-solid fa-pen-to-square"></i></button> ` +
                     `<button onclick="deleteRequest('${req.id}')" class="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><i class="fa-solid fa-trash-can"></i></button>`;
@@ -1253,13 +1310,14 @@
                         <td class="py-3 px-4 font-bold text-red-600 text-sm">${dupBadge}${escapeHtml(req.name)} ${updatedBadge}</td>
                         <td class="py-3 px-4 text-center font-black text-slate-900 text-sm">${req.qty}</td>
                         <td class="py-3 px-4 text-center">${priorityBadge}</td>
+                        <td class="py-3 px-4 text-center">${catBadge}</td>
                         <td class="py-3 px-4 text-slate-500 italic max-w-xs truncate">${escapeHtml(req.note || '—')}</td>
-                        <td class="py-3 px-4 text-center"><span class="bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-md font-bold text-[10px]">Chờ Mua</span></td>
                         <td class="py-3 px-4 text-right space-x-1 whitespace-nowrap">${actions}</td>
                     </tr>`;
             }).join('');
         };
 
+        // RENDER TAB 2: KHO TẠI PHÁP (NEWEST FIRST)
         window.renderPurchased = function() {
             const tbody = document.getElementById('purchased-tbody');
             if (!tbody) return;
@@ -1274,7 +1332,18 @@
                 if (norm) nameCounts[norm] = (nameCounts[norm] || 0) + 1;
             });
 
-            const filtered = (window.appData.purchased || []).filter(p => (p.name || '').toLowerCase().includes(searchTerm));
+            // SORT NEWEST FIRST (By date descending, then ID timestamp)
+            let rawList = [...(window.appData.purchased || [])];
+            rawList.sort((a, b) => {
+                const timeA = a.createdAt || parseInt((a.id || '').split('_')[1]) || 0;
+                const timeB = b.createdAt || parseInt((b.id || '').split('_')[1]) || 0;
+                if (a.date !== b.date) {
+                    return (b.date || '').localeCompare(a.date || '');
+                }
+                return timeB - timeA;
+            });
+
+            const filtered = rawList.filter(p => (p.name || '').toLowerCase().includes(searchTerm));
 
             let totalStockValEur = (window.appData.purchased || []).reduce((acc, p) => acc + (p.qty * p.priceEur), 0);
             const badgeVal = document.getElementById('purchased-stock-value-badge');
@@ -1476,14 +1545,18 @@
             document.getElementById('stat-total-vnd').innerText = formatVND(stockEur * rate);
         };
 
+        // CREATE REQUEST (WITH CATEGORY & CREATED_AT)
         window.handleCreateRequest = async function(e) {
             e.preventDefault();
+            const now = Date.now();
             const newReq = {
-                id: 'req_' + Date.now(),
+                id: 'req_' + now,
                 name: document.getElementById('req-name').value.trim(),
                 qty: parseInt(document.getElementById('req-qty').value) || 1,
                 priority: document.getElementById('req-priority').value,
+                category: document.getElementById('req-category').value,
                 note: document.getElementById('req-note').value.trim(),
+                createdAt: now,
                 isQtyUpdated: false
             };
             await window.saveDocument('requests', newReq);
@@ -1499,6 +1572,7 @@
             document.getElementById('edit-req-name').value = req.name || '';
             document.getElementById('edit-req-qty').value = req.qty || 1;
             document.getElementById('edit-req-priority').value = req.priority || 'Chờ được ⏳';
+            document.getElementById('edit-req-category').value = req.category || 'Sephora';
             document.getElementById('edit-req-note').value = req.note || '';
             openModal('modal-edit-request');
         };
@@ -1514,6 +1588,7 @@
                 req.name = document.getElementById('edit-req-name').value.trim();
                 req.qty = newQty;
                 req.priority = document.getElementById('edit-req-priority').value;
+                req.category = document.getElementById('edit-req-category').value;
                 req.note = document.getElementById('edit-req-note').value.trim();
                 
                 if (oldQty !== newQty) req.isQtyUpdated = true;
@@ -1554,14 +1629,16 @@
             const orderId = document.getElementById('pur-confirm-order-select').value || '';
 
             const req = (window.appData.requests || []).find(r => r.id === reqId);
+            const now = Date.now();
 
             const newPur = {
-                id: 'pur_' + Date.now(),
+                id: 'pur_' + now,
                 name: name,
                 qty: qtyPurchased,
                 priceEur: priceEur,
                 date: new Date().toISOString().split('T')[0],
-                orderId: orderId
+                orderId: orderId,
+                createdAt: now
             };
 
             await window.saveDocument('purchased', newPur);
@@ -1685,17 +1762,19 @@
             await window.saveDocument('shipments', ship);
 
             const existingPur = (window.appData.purchased || []).find(p => p.name === item.name && p.priceEur === item.priceEur);
+            const now = Date.now();
             if (existingPur) {
                 existingPur.qty += item.qty;
                 await window.saveDocument('purchased', existingPur);
             } else {
                 await window.saveDocument('purchased', {
-                    id: 'pur_' + Date.now(),
+                    id: 'pur_' + now,
                     name: item.name,
                     qty: item.qty,
                     priceEur: item.priceEur,
                     date: new Date().toISOString().split('T')[0],
-                    orderId: item.orderId || ''
+                    orderId: item.orderId || '',
+                    createdAt: now
                 });
             }
 
@@ -1725,17 +1804,19 @@
                 if (ship && ship.items) {
                     for (const item of ship.items) {
                         const existingPur = (window.appData.purchased || []).find(p => p.name === item.name && p.priceEur === item.priceEur);
+                        const now = Date.now();
                         if (existingPur) {
                             existingPur.qty += item.qty;
                             await window.saveDocument('purchased', existingPur);
                         } else {
                             await window.saveDocument('purchased', {
-                                id: 'pur_' + Date.now() + Math.random().toString(36).substr(2, 4),
+                                id: 'pur_' + now + Math.random().toString(36).substr(2, 4),
                                 name: item.name,
                                 qty: item.qty,
                                 priceEur: item.priceEur,
                                 date: new Date().toISOString().split('T')[0],
-                                orderId: item.orderId || ''
+                                orderId: item.orderId || '',
+                                createdAt: now
                             });
                         }
                     }
@@ -1858,10 +1939,12 @@
 
                     let colQty = headers.findIndex(h => h.includes('số lượng') || h.includes('sl') || h.includes('qty'));
                     let colPriority = headers.findIndex(h => h.includes('ưu tiên') || h.includes('priority'));
+                    let colCategory = headers.findIndex(h => h.includes('nơi mua') || h.includes('nhóm') || h.includes('category') || h.includes('store'));
                     let colNotes = headers.findIndex(h => h.includes('ghi chú') || h.includes('note') || h.includes('mô tả'));
 
                     let importedCount = 0;
                     const newItems = [];
+                    const baseTime = Date.now();
 
                     for (let i = headerRowIndex + 1; i < jsonData.length; i++) {
                         const row = jsonData[i];
@@ -1883,14 +1966,22 @@
                             else if (pText.includes('sale') || pText.includes('săn')) priorityVal = 'Săn Sale 🏷️';
                         }
 
+                        let catVal = 'Sephora';
+                        if (colCategory !== -1 && row[colCategory]) {
+                            catVal = String(row[colCategory]).trim();
+                        }
+
                         let noteVal = (colNotes !== -1 && row[colNotes]) ? String(row[colNotes]).trim() : '';
+                        const itemTime = baseTime + i;
 
                         const item = {
-                            id: 'req_' + Date.now() + '_' + i + '_' + Math.random().toString(36).substr(2, 4),
+                            id: 'req_' + itemTime,
                             name: nameVal,
                             qty: qtyVal,
                             priority: priorityVal,
+                            category: catVal,
                             note: noteVal,
+                            createdAt: itemTime,
                             isQtyUpdated: false
                         };
 
@@ -2249,14 +2340,16 @@ Trả về DUY NHẤT một chuỗi JSON theo cấu trúc chuẩn sau:
                 const netPriceEur = parseFloat(document.getElementById(`ai-item-netprice-${rowIdx}`)?.value) || 0;
 
                 if (!nameDisplay) continue;
+                const now = Date.now();
 
                 const newPurchased = {
-                    id: 'pur_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                    id: 'pur_' + now + '_' + Math.random().toString(36).substr(2, 4),
                     name: nameDisplay,
                     qty: qty,
                     priceEur: netPriceEur,
                     date: new Date().toISOString().split('T')[0],
-                    orderId: orderId || ''
+                    orderId: orderId || '',
+                    createdAt: now
                 };
                 await window.saveDocument('purchased', newPurchased);
 
